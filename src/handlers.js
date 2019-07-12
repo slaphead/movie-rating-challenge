@@ -2,6 +2,7 @@ const _ = require('lodash');
 const withMiddleware = require('./utils/middleware');
 const { createError, validateEmail } = require('./utils/common');
 const theMovieDb = require('./lib/theMovieDb');
+const { updateMovieRating } = require('./lib/movieManager');
 const db = require('./lib/dynamodb');
 
 /**
@@ -83,7 +84,7 @@ const createMovieUser = async (event) => {
 
   try {
     const userData = { email, username };
-    await db.addUser(userData);
+    await db.createUser(userData);
 
     return {
       statusCode: 200,
@@ -124,7 +125,48 @@ const getMovieUser = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response.Item || 'Username not found'),
+      body: JSON.stringify(response || 'Username not found'),
+    };
+  } catch (error) {
+    console.log(error); // Log the full error to the console for troublehsooting.
+    throw createError({
+      statusCode: 500,
+      message: `Internal error: ${error.message}`,
+    });
+  }
+};
+
+/**
+ * Allows a user to rate a movie using the movie id. It will store this rating with the user in the db along with the movie id and the name of the movie
+ * Hypothetical is the user has been signed in to use this endpoint beyond doing basic authorization
+ * @param {Object} event
+ */
+const rateMovie = async (event) => {
+  const username = _.get(event, 'body.username');
+  const rating = _.get(event, 'body.rating');
+  const movieId = _.get(event, 'pathParameters.movieId');
+
+  if (!username || !rating) {
+    throw createError({
+      statusCode: 400,
+      message: 'Bad Request: missing required fields',
+    });
+  }
+
+  // TODO Better rating validation
+  if (rating < 0 || rating > 10) {
+    throw createError({
+      statusCode: 400,
+      message: 'Bad Request: rating must be between 1 and 10',
+    });
+  }
+
+  try {
+    const update = await updateMovieRating({ username, rating, movieId });
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(update),
     };
   } catch (error) {
     console.log(error); // Log the full error to the console for troublehsooting.
@@ -140,4 +182,5 @@ module.exports = {
   getMovieDetails: withMiddleware(getMovieDetails),
   createMovieUser: withMiddleware(createMovieUser),
   getMovieUser: withMiddleware(getMovieUser),
+  rateMovie: withMiddleware(rateMovie),
 };

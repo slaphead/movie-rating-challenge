@@ -63,6 +63,13 @@ functions:
           path: /v1.0/users
           method: get
           cors: true
+  rateMovie:
+    handler: src/handlers.rateMovie
+    events:
+      - http:
+          path: /v1.0/movies/{movieId}
+          method: post
+          cors: true
 
 resources:
   Resources:

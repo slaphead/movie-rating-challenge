@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const AWS = require('aws-sdk');
 
 const { IS_OFFLINE, USERS_TABLE } = process.env;
@@ -17,31 +18,52 @@ if (IS_OFFLINE === 'true') {
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
 
-const addUser = async (params) => {
+const createUser = async (params) => {
   // TODO Validate input params
-  tableParams.Item = {
-    username: params.username,
-    email: params.email,
-  };
-  tableParams.ConditionExpression = 'username <> :username';
-  tableParams.ExpressionAttributeValues = {
-    ':username': params.username,
-  };
-  return dynamoDb.put(tableParams).promise();
+  const putParams = _.merge(tableParams, {
+    Item: {
+      username: params.username,
+      email: params.email,
+    },
+    ConditionExpression: 'username <> :username',
+    ExpressionAttributeValues: {
+      ':username': params.username,
+    },
+  });
+  return dynamoDb.put(putParams).promise();
 };
 
 const getUser = async (username) => {
-  // tableParams.KeyConditionExpression = 'username = :username';
-  // tableParams.ExpressionAttributeValues = {
-  //   ':username': username,
-  // };
   tableParams.Key = {
     username,
   };
-  return dynamoDb.get(tableParams).promise();
+  const response = await dynamoDb.get(tableParams).promise();
+  return response.Item;
+};
+
+const updateMovies = async (params) => {
+  const { username, movies } = params;
+
+  const updateParams = _.merge(tableParams, {
+    Key: {
+      username,
+    },
+    UpdateExpression: 'set #movies = :moviesValue',
+    ExpressionAttributeNames: {
+      '#movies': 'movies',
+    },
+    ExpressionAttributeValues: {
+      ':moviesValue': movies,
+    },
+    ReturnValues: 'ALL_NEW',
+  });
+
+  const updateResponse = await dynamoDb.update(updateParams).promise();
+  return updateResponse.Attributes;
 };
 
 module.exports = {
-  addUser,
+  createUser,
   getUser,
+  updateMovies,
 };

@@ -4,6 +4,7 @@ This is a REST API that supports the following:
 - [Get details of a movie with its id](#get-details-of-a-movie)
 - [Add a user](#add-a-user)
 - [Fetch a user](#fetch-a-user)
+- [Rate a movie](#rate-a-movie)
 
 The movie parts are making use of https://developers.themoviedb.org. This requires you have an api key that allows access to their API. The setup section below will explain where to place this api key.
 
@@ -114,4 +115,25 @@ Example
 curl --request GET \
   --url 'http://localhost:3000/v1.0/users?username=slaphead' \
   --header 'authorization: anexamplestring'
+```
+
+### Rate a movie
+Allows a user to rate a movie with this API. It keeps its own internal ratings for each user. i.e. it is not using the rating API on https://developers.themoviedb.org
+
+The path parameter takes the movie id to be rated
+
+The body requires two fields:
+- rating: number from 0 to 10 (Right now any float will be accepted)
+- username
+
+Example
+```
+curl --request POST \
+  --url http://localhost:3000/v1.0/movies/299534 \
+  --header 'authorization: anexamplestring' \
+  --header 'content-type: application/json' \
+  --data '{
+	"rating": 8.21,
+	"username": "slaphead"
+}'
 ```
