@@ -29,7 +29,7 @@ const searchMovies = async (event) => {
       body: JSON.stringify(response.data),
     };
   } catch (error) {
-    console.log(error); // Log the full error to the console for troublehsooting.
+    console.log(error); // Log the full error to the console for troubleshooting.
     throw createError({
       statusCode: 500,
       message: `Internal error: ${error.message}`,
@@ -52,7 +52,7 @@ const getMovieDetails = async (event) => {
       body: JSON.stringify(response.data),
     };
   } catch (error) {
-    console.log(error); // Log the full error to the console for troublehsooting.
+    console.log(error); // Log the full error to the console for troubleshooting.
     throw createError({
       statusCode: 500,
       message: `Internal error: ${error.message}`,
@@ -91,7 +91,7 @@ const createMovieUser = async (event) => {
       body: JSON.stringify(userData),
     };
   } catch (error) {
-    console.log(error); // Log the full error to the console for troublehsooting.
+    console.log(error); // Log the full error to the console for troubleshooting.
     // TODO Clean up custom error handling
     if (error.message === 'The conditional request failed') {
       throw createError({
@@ -128,7 +128,7 @@ const getMovieUser = async (event) => {
       body: JSON.stringify(response || 'Username not found'),
     };
   } catch (error) {
-    console.log(error); // Log the full error to the console for troublehsooting.
+    console.log(error); // Log the full error to the console for troubleshooting.
     throw createError({
       statusCode: 500,
       message: `Internal error: ${error.message}`,
@@ -169,7 +169,7 @@ const rateMovie = async (event) => {
       body: JSON.stringify(update),
     };
   } catch (error) {
-    console.log(error); // Log the full error to the console for troublehsooting.
+    console.log(error); // Log the full error to the console for troubleshooting.
     throw createError({
       statusCode: 500,
       message: `Internal error: ${error.message}`,
