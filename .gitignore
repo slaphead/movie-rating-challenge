@@ -1,2 +1,3 @@
 src/configs/secrets.js
 node_modules
+.dynamodb

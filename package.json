@@ -4,12 +4,15 @@
   "description": "API for movies and rating them",
   "main": "src/handlers.js",
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postinstall": "sls dynamodb install"
   },
   "author": "Stephen Smit",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.492.0",
     "axios": "^0.19.0",
+    "email-validator": "^2.0.4",
     "lodash": "^4.17.14",
     "middy": "^0.28.3",
     "serverless": "^1.47.0"
@@ -21,7 +24,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-no-only-tests": "^2.3.1",
     "eslint-plugin-react": "^7.14.2",
-    "serverless-dynamodb-local": "^1.0.2",
+    "serverless-dynamodb-local": "^0.2.37",
     "serverless-offline": "^5.7.3"
   }
 }

@@ -1,3 +1,4 @@
+const emailValidator = require('email-validator');
 const { movieChallengeApiKey } = require('../configs/secrets');
 
 const createError = ({ statusCode, message }) => {
@@ -16,7 +17,10 @@ const validateAuthKey = (key) => {
   }
 };
 
+const validateEmail = email => emailValidator.validate(email);
+
 module.exports = {
   validateAuthKey,
   createError,
+  validateEmail,
 };

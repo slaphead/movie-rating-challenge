@@ -12,6 +12,7 @@
       "no-plusplus": "warn",
       "consistent-return": "warn",
       "no-template-curly-in-string": "warn",
+      "no-console": "off",
       "comma-dangle": ["error", {
         "objects": "always-multiline",
         "arrays": "always-multiline",
@@ -31,8 +32,7 @@
       ],
       "rules": {
         "no-unused-expressions": "off",
-        "func-names": "off",
-        "no-console": "off"
+        "func-names": "off"
       },
       "globals": {
         "step": "readonly"
