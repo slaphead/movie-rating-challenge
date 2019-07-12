@@ -1,0 +1,14 @@
+const _ = require('lodash');
+const middleware = require('middy');
+const { jsonBodyParser, httpErrorHandler } = require('middy/middlewares');
+const { validateAuthKey } = require('../utils/common');
+
+const myMiddleware = handlerFunction => middleware(handlerFunction)
+  .before((handler, next) => {
+    validateAuthKey(_.get(handler, 'event.headers.Authorization'));
+    next();
+  })
+  .use(jsonBodyParser())
+  .use(httpErrorHandler());
+
+module.exports = myMiddleware;

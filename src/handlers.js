@@ -1,7 +1,6 @@
 const _ = require('lodash');
-const middleware = require('middy');
-const { jsonBodyParser, httpErrorHandler } = require('middy/middlewares');
-const { validateAuthKey, createError } = require('./utils/common');
+const withMiddleware = require('./utils/middleware');
+const { createError } = require('./utils/common');
 const theMovieDb = require('./lib/theMovieDb');
 
 /**
@@ -10,8 +9,6 @@ const theMovieDb = require('./lib/theMovieDb');
  * @param {Object} event
  */
 const searchMovies = async (event) => {
-  validateAuthKey(_.get(event, 'headers.Authorization'));
-
   const movieName = _.get(event, 'body.name');
 
   if (!movieName) {
@@ -42,8 +39,6 @@ const searchMovies = async (event) => {
  * @param {Object} event
  */
 const getMovieDetails = async (event) => {
-  validateAuthKey(_.get(event, 'headers.Authorization'));
-
   const movieId = _.get(event, 'pathParameters.movieId');
 
   try {
@@ -63,10 +58,6 @@ const getMovieDetails = async (event) => {
 };
 
 module.exports = {
-  searchMovies: middleware(searchMovies)
-    .use(jsonBodyParser())
-    .use(httpErrorHandler()),
-  getMovieDetails: middleware(getMovieDetails)
-    .use(jsonBodyParser())
-    .use(httpErrorHandler()),
+  searchMovies: withMiddleware(searchMovies),
+  getMovieDetails: withMiddleware(getMovieDetails),
 };
