@@ -14,6 +14,13 @@ functions:
     handler: src/handlers.searchMovies
     events:
       - http:
-          path: /v1.0/search/movie
+          path: /v1.0/movies
           method: post
+          cors: true
+  getMovieDetails:
+    handler: src/handlers.getMovieDetails
+    events:
+      - http:
+          path: /v1.0/movies/{movieId}
+          method: get
           cors: true

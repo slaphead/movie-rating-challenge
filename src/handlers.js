@@ -37,8 +37,36 @@ const searchMovies = async (event) => {
   }
 };
 
+/**
+ * Using a movie id, get details of it
+ * @param {Object} event
+ */
+const getMovieDetails = async (event) => {
+  validateAuthKey(_.get(event, 'headers.Authorization'));
+
+  const movieId = _.get(event, 'pathParameters.movieId');
+
+  try {
+    const response = await theMovieDb.getMovie(movieId);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.data),
+    };
+  } catch (error) {
+    console.log(error); // Log the full error to the console for troublehsooting.
+    throw createError({
+      statusCode: 500,
+      message: `Internal error: ${error.message}`,
+    });
+  }
+};
+
 module.exports = {
   searchMovies: middleware(searchMovies)
+    .use(jsonBodyParser())
+    .use(httpErrorHandler()),
+  getMovieDetails: middleware(getMovieDetails)
     .use(jsonBodyParser())
     .use(httpErrorHandler()),
 };

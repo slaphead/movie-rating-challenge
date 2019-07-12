@@ -14,6 +14,17 @@ const searchForMovies = async (searchTerm) => {
   return axios.get(searchUrl, config);
 };
 
+const getMovie = async (movieId) => {
+  const searchUrl = `${BASE_URL}/3/movie/${movieId}`;
+  const config = {
+    params: {
+      api_key: theMovieDbApiKey,
+    },
+  };
+  return axios.get(searchUrl, config);
+};
+
 module.exports = {
   searchForMovies,
+  getMovie,
 };
