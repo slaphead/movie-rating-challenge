@@ -157,7 +157,7 @@ const rateMovie = async (event) => {
   if (rating < 0 || rating > 10) {
     throw createError({
       statusCode: 400,
-      message: 'Bad Request: rating must be between 1 and 10',
+      message: 'Bad Request: rating must be between 0 and 10',
     });
   }
 
