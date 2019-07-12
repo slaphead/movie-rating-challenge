@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const middleware = require('middy');
-const { jsonBodyParser } = require('middy/middlewares');
-const { validateAuthKey, makeError } = require('./utils/common');
+const { jsonBodyParser, httpErrorHandler } = require('middy/middlewares');
+const { validateAuthKey, createError } = require('./utils/common');
 const theMovieDb = require('./lib/theMovieDb');
 
 /**
@@ -10,10 +10,12 @@ const theMovieDb = require('./lib/theMovieDb');
  * @param {Object} event
  */
 const searchMovies = async (event) => {
+  validateAuthKey(_.get(event, 'headers.Authorization'));
+
   const movieName = _.get(event, 'body.name');
 
   if (!movieName) {
-    throw makeError({
+    throw createError({
       statusCode: 400,
       message: 'Bad Request: name required',
     });
@@ -28,7 +30,7 @@ const searchMovies = async (event) => {
     };
   } catch (error) {
     console.log(error); // Log the full error to the console for troublehsooting.
-    throw makeError({
+    throw createError({
       statusCode: 500,
       message: `Internal error: ${error.message}`,
     });
@@ -36,8 +38,7 @@ const searchMovies = async (event) => {
 };
 
 module.exports = {
-  searchMovies: middleware(searchMovies).before((handler, next) => {
-    validateAuthKey(_.get(handler, 'event.headers.Authorization'));
-    next();
-  }).use(jsonBodyParser()),
+  searchMovies: middleware(searchMovies)
+    .use(jsonBodyParser())
+    .use(httpErrorHandler()),
 };
