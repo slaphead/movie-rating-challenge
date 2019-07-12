@@ -1,0 +1,42 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+      "node": true
+  },
+  "plugins": [
+      "no-only-tests"
+  ],
+  "rules": {
+      "max-len": ["warn", 200],
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/test/**/*.js"]}],
+      "no-plusplus": "warn",
+      "consistent-return": "warn",
+      "no-template-curly-in-string": "warn",
+      "comma-dangle": ["error", {
+        "objects": "always-multiline",
+        "arrays": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }],
+      "import/no-unresolved": "warn",
+      "no-only-tests/no-only-tests": 2,
+      "global-require": "off",
+      "import/no-dynamic-require": "warn"
+   },
+  "overrides": [
+    {
+      "files": [
+        "test/**/*.js"
+      ],
+      "rules": {
+        "no-unused-expressions": "off",
+        "func-names": "off",
+        "no-console": "off"
+      },
+      "globals": {
+        "step": "readonly"
+      }
+    }
+  ]
+}

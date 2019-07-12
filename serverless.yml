@@ -1,0 +1,19 @@
+service: movie-rating-challenge
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  searchMovies:
+    handler: src/handlers.searchMovies
+    events:
+      - http:
+          path: /v1.0/search/movie
+          method: post
+          cors: true
