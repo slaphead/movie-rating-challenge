@@ -8,7 +8,7 @@ This is a REST API that supports the following:
 
 The movie parts are making use of https://developers.themoviedb.org. This requires you have an api key that allows access to their API. The setup section below will explain where to place this api key.
 
-NOTE: It has not been tested yet, but this should be deployable to AWS via serverless. I will add a small deploy section at the bottom, but again, this part has not been tested. Do so at your own risk!
+NOTE: It has not been tested yet, but this should be deployable to AWS via serverless. I added a small deploy section at the bottom, but again, this part has not been tested. Do so at your own risk!
 
 ## Setup
 Requirements:
