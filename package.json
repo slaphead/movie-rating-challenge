@@ -5,7 +5,8 @@
   "main": "src/handlers.js",
   "scripts": {
     "lint": "eslint src",
-    "postinstall": "sls dynamodb install"
+    "postinstall": "sls dynamodb install",
+    "start": "sls offline start"
   },
   "author": "Stephen Smit",
   "license": "ISC",
