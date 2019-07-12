@@ -17,7 +17,7 @@ Installing the node modules will also install dynamodb local
 npm install
 ```
 
-You will need to create a `src/configs/secrets.js` with two API keys:
+You will need to create a `src/configs/secrets.js` with two API keys: (If the configs folder does not exit, please create it)
 
 1. An API key for access to https://developers.themoviedb.org
 2. Your own generated key which is used to authenticate against the API endpoints in this project.
