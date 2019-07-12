@@ -10,6 +10,7 @@ The movie parts are making use of https://developers.themoviedb.org. This requir
 ## Setup
 Requirements:
 - Node 10.15.0
+- Java Runtime Environment - minimum version 8
 
 Installing the node modules will also install dynamodb local
 
@@ -55,7 +56,7 @@ curl --request GET \
 ```
 
 ### Get details of a movie
-User the movie id in the path parameter to get details about it. The movie id can be retrived from the movie search response. It is found in the results array. Example object extract from the results array:
+Use the movie id in the path parameter to get details about it. The movie id can be retrived from the movie search response. It is found in the results array. Example object extract from the results array:
 ```
 ...
 {
