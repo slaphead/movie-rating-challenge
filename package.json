@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint src",
     "postinstall": "sls dynamodb install",
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "deploy": "sls deploy"
   },
   "author": "Stephen Smit",
   "license": "ISC",

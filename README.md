@@ -8,6 +8,8 @@ This is a REST API that supports the following:
 
 The movie parts are making use of https://developers.themoviedb.org. This requires you have an api key that allows access to their API. The setup section below will explain where to place this api key.
 
+NOTE: It has not been tested yet, but this should be deployable to AWS via serverless. I will add a small deploy section at the bottom, but again, this part has not been tested. Do so at your own risk!
+
 ## Setup
 Requirements:
 - Node 10.15.0
@@ -136,4 +138,12 @@ curl --request POST \
 	"rating": 8.21,
 	"username": "slaphead"
 }'
+```
+
+## Deploy
+This section has the deploy option. Using serverless, it would deploy these API endpoints and setup the dynamodb table to your AWS environment. It has not been tested yet, so this part is not confirmed.
+
+It assumes a stage of `dev` and a region of `us-east-1` and is not currently configurable without editing the `serverless.yml` file
+```
+npm run deploy
 ```
