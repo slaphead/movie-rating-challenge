@@ -147,3 +147,9 @@ It assumes a stage of `dev` and a region of `us-east-1` and is not currently con
 ```
 npm run deploy
 ```
+
+## Quality
+The project is linted with airbnb and some custom overrides
+```
+npm run lint
+```
