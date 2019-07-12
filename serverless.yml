@@ -15,7 +15,7 @@ functions:
     events:
       - http:
           path: /v1.0/movies
-          method: post
+          method: get
           cors: true
   getMovieDetails:
     handler: src/handlers.getMovieDetails

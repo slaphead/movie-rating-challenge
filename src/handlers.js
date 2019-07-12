@@ -9,7 +9,7 @@ const theMovieDb = require('./lib/theMovieDb');
  * @param {Object} event
  */
 const searchMovies = async (event) => {
-  const movieName = _.get(event, 'body.name');
+  const movieName = _.get(event, 'queryStringParameters.name');
 
   if (!movieName) {
     throw createError({

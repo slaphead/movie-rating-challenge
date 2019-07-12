@@ -3,7 +3,7 @@ const middleware = require('middy');
 const { jsonBodyParser, httpErrorHandler } = require('middy/middlewares');
 const { validateAuthKey } = require('../utils/common');
 
-const myMiddleware = handlerFunction => middleware(handlerFunction)
+const withMiddleware = handlerFunction => middleware(handlerFunction)
   .before((handler, next) => {
     validateAuthKey(_.get(handler, 'event.headers.Authorization'));
     next();
@@ -11,4 +11,4 @@ const myMiddleware = handlerFunction => middleware(handlerFunction)
   .use(jsonBodyParser())
   .use(httpErrorHandler());
 
-module.exports = myMiddleware;
+module.exports = withMiddleware;
