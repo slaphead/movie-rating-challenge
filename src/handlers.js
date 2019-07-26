@@ -153,7 +153,7 @@ const rateMovie = async (event) => {
     });
   }
 
-  // TODO Better rating validation
+  // TODO Better rating validation as this still allows floats
   if (rating < 0 || rating > 10) {
     throw createError({
       statusCode: 400,

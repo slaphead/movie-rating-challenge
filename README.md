@@ -21,35 +21,27 @@ Installing the node modules will also install dynamodb local
 npm install
 ```
 
-You will need to create a `src/configs/secrets.js` with two API keys: (If the configs folder does not exit, please create it)
+You will update the `src/configs/secrets.js` with two API keys:
 
 1. An API key for access to https://developers.themoviedb.org
 2. Your own generated key which is used to authenticate against the API endpoints in this project.
 
-The is the format of the secrets.js file:
-```
-module.exports = {
-  theMovieDbApiKey: '',
-  movieChallengeApiKey: 'anexamplestring',
-};
-```
-
 ## Startup
 The startup will initiate a serverless local environment which will also spinup a local dynamodb instance. This allows for local HTTP calls and user state management.
 
-The default settings are `localhost:3000` for the API end points and `localhost:8000` for dynamodb.
+The defaults are `localhost:3000` for the API end points and `localhost:8000` for dynamodb.
 
 ```
 npm run start
 ```
 
 ## Usage
-There is one exposed end point for each of the supported items listed in the description above. Below are details and example curls commands to access them once the local serverless has been started.
+There is one exposed end point for each of the supported items listed in the description above. Below are details and example curl commands to access them once the local serverless has been started.
 
 ### Search for a movie
 This takes in two query parameters:
 - name: A string for the movie name to search for
-- page: The response will return page 1 by default, but you can specify other pages based on the initial reponse showing the total pages.
+- page: The response will return page 1 by default, but you can specify other pages based on the initial response showing the total pages.
 
 Example
 ```
